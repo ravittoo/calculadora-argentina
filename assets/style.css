@@ -1,7 +1,0 @@
-body { font-family: sans-serif; display: flex; justify-content: center; padding: 20px; background-color: #eef2f3; }
-        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-        input { width: 95%; padding: 12px; margin: 15px 0; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; } 
-        select { width: 101%; padding: 12px; margin: 15px 0; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; }
-        .status { font-size: 0.8em; color: #666; margin-bottom: 10px; }
-        .result-box { background: #f8f9fa; padding: 15px; border-radius: 6px; margin-top: 15px; text-align: center; }
-        .price { font-size: 1.5em; font-weight: bold; color: #28a745; }
