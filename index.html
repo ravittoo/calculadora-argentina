@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="assets/script.js"></script>
+    <link rel="shortcut icon" href="assets/moneda.ico" type="image/x-icon">
+    <title>Conversor Dólar ARS</title>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Dólar a Pesos</h2>
+        <div id="status" class="status">Cargando cotizaciones...</div>
+        
+        <label>Cantidad en USD:</label>
+        <input type="number" id="usdInput" placeholder="Monto en dólares" oninput="convertir()">
+
+        <label>Tipo de Dólar:</label>
+        <select id="tipoDolar" onchange="convertir()"></select>
+
+        <div class="result-box">
+            <span>Total en Pesos:</span>
+            <div id="arsOutput" class="price">$ 0.00</div>
+            <small id="cotizacionInfo"></small>
+        </div>
+    </div>
+
+</body>
+</html>
