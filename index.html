@@ -4,28 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/style.css">
-    <script src="assets/script.js"></script>
-    <link rel="shortcut icon" href="assets/moneda.ico" type="image/x-icon">
-    <title>Conversor Dólar ARS</title>
+    <link rel="icon" type="image/png" href="assets/moneda.ico">
+    <script src="assets/script.js" defer></script>
+    <title>Calculadora Dólar Pro</title>
 </head>
 <body>
 
     <div class="card">
-        <h2>Dólar a Pesos</h2>
-        <div id="status" class="status">Cargando cotizaciones...</div>
-        
-        <label>Cantidad en USD:</label>
-        <input type="number" id="usdInput" placeholder="Monto en dólares" oninput="convertir()">
-
-        <label>Tipo de Dólar:</label>
-        <select id="tipoDolar" onchange="convertir()"></select>
-
-        <div class="result-box">
-            <span>Total en Pesos:</span>
-            <div id="arsOutput" class="price">$ 0.00</div>
-            <small id="cotizacionInfo"></small>
+        <div class="header">
+            <h2>Calculadora Argentina</h2>
+            <p>Cotizaciones en tiempo real</p>
         </div>
+        
+        <div id="loading" style="text-align:center; padding: 20px; color: #666;">Cargando datos...</div>
+        
+        <div id="dollarContainer" class="dollar-list"></div>
     </div>
-
 </body>
 </html>
