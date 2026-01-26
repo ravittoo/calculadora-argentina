@@ -1,3 +1,3 @@
 # calculadora-argentina
-calculadora de IVA
+cotizaciones de Dolares
 https://ravittoo.github.io/calculadora-argentina/
