@@ -57,38 +57,47 @@ const TIPOS_INTERES = ['blue', 'oficial', 'bolsa'];
         // --- LÓGICA DE FORMATEO ---
 
         function manejarInput(elemento, tipo, origen) {
-            // 1. Limpiamos el valor para el cálculo (solo números)
-            let rawValue = elemento.value.replace(/\D/g, "");
-            
-            // 2. Si no hay nada, limpiamos ambos campos y salimos
-            if (!rawValue) {
-                document.getElementById(`ars-${tipo}`).value = "";
-                document.getElementById(`usd-${tipo}`).value = "";
-                return;
-            }
+    // 1. Permitimos solo números y UNA coma
+    let valor = elemento.value.replace(/[^\d,]/g, ""); // Borra todo menos números y coma
+    
+    // Evitamos que pongan más de una coma
+    let partes = valor.split(",");
+    if (partes.length > 2) {
+        valor = partes[0] + "," + partes[1];
+        partes = [partes[0], partes[1]];
+    }
 
-            // 3. Aplicamos el formato de miles visual al campo que se está escribiendo
-            elemento.value = new Intl.NumberFormat('es-AR').format(rawValue);
+    // 2. Formateamos la parte entera con miles
+    if (partes[0]) {
+        let enteroFormateado = new Intl.NumberFormat('es-AR').format(partes[0]);
+        elemento.value = partes.length > 1 ? enteroFormateado + "," + partes[1] : enteroFormateado;
+    }
 
-            // 4. Ejecutamos el cálculo matemático
-            ejecutarCalculo(tipo, origen, parseFloat(rawValue));
-        }
+    // 3. Preparamos el valor para el cálculo (cambiamos coma por punto para JS)
+    let valorParaCalculo = valor.replace(",", ".");
+    if (valorParaCalculo && !isNaN(valorParaCalculo)) {
+        ejecutarCalculo(tipo, origen, parseFloat(valorParaCalculo));
+    }
+}
 
         function ejecutarCalculo(tipo, origen, valorNumerico) {
-            const inputArs = document.getElementById(`ars-${tipo}`);
-            const inputUsd = document.getElementById(`usd-${tipo}`);
-            const precio = cotizaciones[tipo].venta;
+    const inputArs = document.getElementById(`ars-${tipo}`);
+    const inputUsd = document.getElementById(`usd-${tipo}`);
+    const precio = cotizaciones[tipo].venta;
 
-            if (origen === 'ars') {
-                let resultado = valorNumerico / precio;
-                // Formateamos el resultado del otro campo con 2 decimales
-                inputUsd.value = new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(resultado);
-            } else {
-                let resultado = valorNumerico * precio;
-                // Formateamos el resultado del otro campo (pesos sin decimales usualmente)
-                inputArs.value = new Intl.NumberFormat('es-AR').format(Math.round(resultado));
-            }
-        }
+    if (origen === 'ars') {
+        let resultado = valorNumerico / precio;
+        // USD siempre con 2 decimales y coma
+        inputUsd.value = new Intl.NumberFormat('es-AR', { 
+            minimumFractionDigits: 2, 
+            maximumFractionDigits: 2 
+        }).format(resultado);
+    } else {
+        let resultado = valorNumerico * precio;
+        // ARS lo redondeamos (nadie usa centavos de peso)
+        inputArs.value = new Intl.NumberFormat('es-AR').format(Math.round(resultado));
+    }
+}
 
         // --- LÓGICA RESTANTE (Acordeón y Edición) ---
 
@@ -107,3 +116,4 @@ const TIPOS_INTERES = ['blue', 'oficial', 'bolsa'];
         }
 
         iniciarApp();
+
